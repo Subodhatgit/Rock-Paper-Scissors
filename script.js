@@ -38,7 +38,7 @@ let userChoice ='';
 
 
 //Changing and styling body of html//
-document.body.style.backgroundColor='#3c3d40';
+document.body.style.backgroundColor='#161032';
 
 
 //Adding buttons for choosing rock,paper,scissors for user//
@@ -62,7 +62,7 @@ const allButtons = document.querySelectorAll('button');
 
 for (let i=0;i<allButtons.length;i++){
 
-allButtons[i].style.backgroundColor = '#4CAF50';  // Green background
+allButtons[i].style.backgroundColor = '#e06d06';  // Green background
 allButtons[i].style.border = 'none';  // No border
 allButtons[i].style.color = 'white';  // White text
 allButtons[i].style.padding = '15px 32px';  // Padding
@@ -75,9 +75,14 @@ allButtons[i].style.cursor = 'pointer';  // Cursor changes to a hand when you ho
 allButtons[i].style.borderRadius = '12px';  // Rounded corners
 
 allButtons[i].addEventListener('mouseover',function(){
-    allButtons[i].style.backgroundColor = 'blue'; // Change the background color to blue
+    allButtons[i].style.backgroundColor = '#ffc53a'; // Change the background color to blue
+});
+allButtons[i].addEventListener('mouseout',function(){
+    allButtons[i].style.backgroundColor = '#e06d06'; // Change the background color to blue
 });
 }
+
+
 
 //Adding a new div for the buttons//
 const divForButtons= document.createElement('div');
@@ -120,29 +125,33 @@ userChoseRock.addEventListener("click",function(){
 
 userChosePaper.addEventListener("click",function(){
     userChoice="paper";
-    createNewDiv.textContent='Pressed paper button';
 })
 
 userChoseScissors.addEventListener("click",function(){
     userChoice="scissors";
-    createNewDiv.textContent='Pressed scissors button';
 })
+
+//Creating another section for showing computer's choice//
+const computerChose = document.createElement('p');
+
+
+//Appending computers choice in a section//
 
 //Appending div that counts wins in html//
 document.body.appendChild(createNewDiv);
 document.body.appendChild(createNewDiv1);
 
 //Creating a section tag//
-const section = document.createElement('section');
-document.body.appendChild(section);
-section.appendChild(createNewDiv);
-section.appendChild(createNewDiv1);
+const sectionForWins = document.createElement('section');
+document.body.appendChild(sectionForWins);
+sectionForWins.appendChild(createNewDiv);
+sectionForWins.appendChild(createNewDiv1);
 
-//Styling section elements//
-section.style.display="flex";
-section.style.justifyContent="space-between";
-section.style.padding='0 10% '
-section.style.marginTop="10%"
+//Styling sectionForWins elements//
+sectionForWins.style.display="flex";
+sectionForWins.style.justifyContent="space-between";
+sectionForWins.style.padding='0 10% '
+sectionForWins.style.marginTop="5%"
 
 const sectionElements = document.querySelectorAll('section');
 sectionElements.forEach((element)=>{
@@ -189,12 +198,13 @@ function playRound(userChoice,computerChoice){
  
  
  
- 
+
 
 
 allButtons.forEach((button)=>{ 
 button.addEventListener('click',()=>{
-   
+
+ if(userWins<5&&computerWins<5){   
     //logic for computer to choose//
 const randomNumber=() =>Math.floor(Math.random()*3)+1;
 const randomNumber1=randomNumber();
@@ -223,7 +233,36 @@ let computerChoice=computerChoice1.toLowerCase();
 createNewDiv.textContent='User Wins: '+userWins;
 createNewDiv1.textContent='Computer Wins: '+computerWins;
 
+ }
+ if (userWins==5){
+    pForResult.textContent="Yay you win!";
+    document.body.appendChild(result);
+    result.appendChild(pForResult);
+ }else if (computerWins==5){
+     pForResult.textContent="Yay I won!";
+     document.body.appendChild(result);
+     result.appendChild(pForResult);
+  }
+});
+});
 
-});
-});
+//Creation of result space//
+const result = document.createElement('div');
+const pForResult= document.createElement('p');
+
+console.log(userWins);
+console.log(computerWins);
+
+
+  //Styling pForResult//
+  pForResult.style.color = '#faff81'; // Green color
+  pForResult.style.fontSize = '30px'; // Large font size
+  pForResult.style.fontWeight = 'bold'; // Bold text
+  pForResult.style.textAlign = 'center'; // Center alignment
+  pForResult.style.backgroundColor = '#161032'; // Light blue background
+  pForResult.style.border = '3px solid #faff81'; // Green border
+  pForResult.style.padding = '10px'; // Padding
+  pForResult.style.borderRadius = '5px'; // Rounded corners
+
+
 }
